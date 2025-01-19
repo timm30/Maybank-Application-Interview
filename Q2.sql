@@ -2,7 +2,7 @@
 My understanding of this question is as follows: 
 The data is captured from the "source system" and updated into TableA. However, due to network latency, there may be a delay 
 between the time the data is captured by the source system and the time it is actually applied to the target system (TableA). 
-This delay refers to the time difference between the "capture time" of the data and the time it is "applied to the target system.
+This delay refers to the time difference between the "capture time" of the data and the time it is applied to the target system.
 
 To address this, we can:
 1) Create a LatencyLog table
@@ -31,11 +31,22 @@ BEGIN
     INSERT INTO LatencyLog (Description, SourceDateTime, TargetDateTime, LatencyInSeconds)
     SELECT 
         i.Description,
-        CONVERT(DATETIME, '20' + i.SourceDate + ' ' +  -- Combine SourceDate (YYMMDD) and SourceTime (HHmmss.SS)
-                           LEFT(i.SourceTime, 6), 120),-- Convert into DATETIME format
-        GETDATE(),                                     -- Current time as TargetDateTime
-        DATEDIFF(SECOND,                               -- Calculate the difference between TargetDateTime and SourceDateTime in seconds
-                 CONVERT(DATETIME, '20' + i.SourceDate + ' ' + LEFT(i.SourceTime, 6), 120),
-                 GETDATE())
+        CONVERT(DATETIME, 
+                '20' + SUBSTRING(i.SourceDate, 1, 2) + '-' + 
+                SUBSTRING(i.SourceDate, 3, 2) + '-' + 
+                SUBSTRING(i.SourceDate, 5, 2) + ' ' + 
+                LEFT(i.SourceTime, 2) + ':' + 
+                SUBSTRING(i.SourceTime, 3, 2) + ':' + 
+                SUBSTRING(i.SourceTime, 5, 2), 120),  -- Convert SourceDate and SourceTime to DATETIME
+        GETDATE(),  -- Current time as TargetDateTime
+        DATEDIFF(SECOND, 
+                CONVERT(DATETIME, 
+                        '20' + SUBSTRING(i.SourceDate, 1, 2) + '-' + 
+                        SUBSTRING(i.SourceDate, 3, 2) + '-' + 
+                        SUBSTRING(i.SourceDate, 5, 2) + ' ' + 
+                        LEFT(i.SourceTime, 2) + ':' + 
+                        SUBSTRING(i.SourceTime, 3, 2) + ':' + 
+                        SUBSTRING(i.SourceTime, 5, 2), 120), 
+                GETDATE())  -- Calculate latency in seconds
     FROM inserted i;
 END;
