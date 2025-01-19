@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql_test
+    ports:
+      - "1433:1433" # Exposes MSSQL on localhost:1433
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrong!Passw0rd" # Set the MSSQL SA password
+    # volumes:
+    #   - ./sql-scripts:/docker-entrypoint-initdb.d # This is only one-time test so we do not need it for now
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "8080:8080" # Exposes Adminer on localhost:8080
+    depends_on:
+      - mssql # Ensures Adminer starts after MSSQL
