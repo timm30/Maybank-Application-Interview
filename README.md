@@ -16,7 +16,7 @@ This section describes how the solution for Q2 was tested using the Docker envir
 1. Install **Docker Desktop** from [here](https://www.docker.com/products/docker-desktop/).
 2. Clone this repository:
    ```bash
-   git clone [<repository-url>](https://github.com/timm30/Maybank-Application-Interview.git)
+   git clone https://github.com/timm30/Maybank-Application-Interview.git
    cd Maybank-Application-Interview
 
 3. Switch to the docker-setup branch
