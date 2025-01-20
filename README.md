@@ -31,6 +31,6 @@ This section describes how the solution for Q2 was tested using the Docker envir
    - Access the database using **Adminer** at [http://localhost:8080](http://localhost:8080).
    - Log in with:
      - **System**: MSSQL
-     - **Server**: mssql_test
+     - **Server**: host.docker.internal
      - **Username**: sa
      - **Password**: YourStrong!Passw0rd
