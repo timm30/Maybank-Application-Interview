@@ -34,3 +34,5 @@ This section describes how the solution for Q2 was tested using the Docker envir
      - **Server**: host.docker.internal
      - **Username**: sa
      - **Password**: YourStrong!Passw0rd
+
+For detailed testing steps specific to Q2, please refer to Q2-testing.md.
