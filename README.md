@@ -1,6 +1,6 @@
 # Project Overview
 
-This repository contains the solution and environment setup for tasks related to Q1 and Q2.
+This repository contains the solution and environment setup for tasks related to Q2.
 
 ## Branch Structure
 
